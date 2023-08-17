@@ -25,8 +25,7 @@ public class SocialMediaController {
     AccountService accountService;
 
     public SocialMediaController(){
-        accountService = new AccountService();
-
+        this.accountService = new AccountService();
     }
 
     public Javalin startAPI() {
@@ -45,18 +44,20 @@ public class SocialMediaController {
         context.json("sample text");
     }
 
+  
+
+
     private void userRegistrationHandler(Context context) throws JsonProcessingException{
-        ObjectMapper mapper = new ObjectMapper();
-        Account account = mapper.readValue(context.body(), Account.class);
-        Account addedUser = accountService.userRegistration(account);
-        if(addedUser==null){
-            context.status(400);
-        }else{
-            context.status(200);
-            context.json(mapper.writeValueAsString(addedUser));
-            
+            ObjectMapper mapper = new ObjectMapper();
+            Account account = mapper.readValue(context.body(),Account.class);
+            Account addedUser = accountService.userRegistration(account);
+            if(addedUser==null){
+                context.status(400);
+            }else{
+                context.status(200);
+                context.json(mapper.writeValueAsString(addedUser));
+            }
         }
-    }
 
 
 }

@@ -31,12 +31,13 @@ public class AccountDAO {
 
     }
 
-    public Account getAccountByUsername(Account account){
+    public Account getAccountByUsername(String username){
         Connection connection = ConnectionUtil.getConnection();
         try{
             String sql = "SELECT * FROM account WHERE username = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, account.getUsername());
+            
+            preparedStatement.setString(1, username);
 
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){

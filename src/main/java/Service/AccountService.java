@@ -11,7 +11,7 @@ public class AccountService {
     /*------------------------------------------------------------------------------------------------------------------ */
     /*Constructors for AccountService. One in which no arguments are taken and the other where an AccountDAO object is */
     public AccountService(){
-        AccountDAO accountDAO = new AccountDAO();
+        accountDAO = new AccountDAO();
     }
 
     public AccountService(AccountDAO accountDAO){
@@ -20,10 +20,12 @@ public class AccountService {
     /*------------------------------------------------------------------------------------------------------------------- */
 
     public Account userRegistration(Account account){
-        if((account.getUsername()!=null) && (account.getPassword().length()>=4) && (accountDAO.getAccountByUsername(account)==null)){
-            return accountDAO.userRegistration(account);
-        } System.out.println(account.getUsername());
-        return null;
+        String username = account.getUsername();
+        Account returnAccount = null;
+        if((account.getUsername()!="")&&(account.getPassword().length()>=4)&&(accountDAO.getAccountByUsername(username)==null)){
+            returnAccount = accountDAO.userRegistration(account);
+        }
+        return returnAccount;
     }
 
 
