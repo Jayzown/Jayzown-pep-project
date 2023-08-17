@@ -140,12 +140,10 @@ public class SocialMediaController {
     }
 
     private void getAllMessagesByAccountIdHandler(Context context) throws JsonProcessingException{
-        int message_id = Integer.parseInt(context.pathParam("message_id"));
-        ObjectMapper mapper = new ObjectMapper();
-        Message message = mapper.readValue(context.body(), Message.class);
+        int account_id = Integer.parseInt(context.pathParam("account_id"));        
         
-        if(messageList!=null){
-            context.status(200).json(messageService.getAllMessagesByUser(message_id));
+        if(messageService.getMessageByMessageId(account_id)!=null){
+            context.status(200).json(messageService.getAllMessagesByUser(account_id));
         }else{
             context.status(200).json("");
         }
