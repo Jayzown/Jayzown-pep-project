@@ -19,7 +19,7 @@ public class MessageService {
     /*------------------------------------------------------------------------------------------------------------------- */
     
     public Message createMessage(Message message){
-        if((message.getMessage_text()!="")&&(message.getMessage_text().length()<=255)){
+        if((message.getMessage_text()!="")&&(message.getMessage_text().length()<255)){
             System.out.println("Here?");
             return messageDAO.createMessage(message);
         }return null;
@@ -29,7 +29,9 @@ public class MessageService {
         return messageDAO.getAllMessages();
     }
 
-    public Message getMessageByMessageId (Message message){
-        return messageDAO.getMessageByMessageId(message);
+    public Message getMessageByMessageId (int id){
+        return messageDAO.getMessageByMessageId(id);
     }
+
+    
 }
