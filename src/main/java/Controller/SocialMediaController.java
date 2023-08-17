@@ -23,6 +23,7 @@ public class SocialMediaController {
      */
 
     AccountService accountService;
+
     public SocialMediaController(){
         accountService = new AccountService();
 
@@ -51,8 +52,9 @@ public class SocialMediaController {
         if(addedUser==null){
             context.status(400);
         }else{
-            context.json(mapper.writeValueAsString(addedUser));
             context.status(200);
+            context.json(mapper.writeValueAsString(addedUser));
+            
         }
     }
 

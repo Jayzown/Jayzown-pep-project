@@ -22,7 +22,8 @@ public class AccountService {
     public Account userRegistration(Account account){
         if((account.getUsername()!=null) && (account.getPassword().length()>=4) && (accountDAO.getAccountByUsername(account)==null)){
             return accountDAO.userRegistration(account);
-        } return null;
+        } System.out.println(account.getUsername());
+        return null;
     }
 
 
