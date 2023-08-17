@@ -21,11 +21,14 @@ public class AccountService {
 
     public Account userRegistration(Account account){
         String username = account.getUsername();
-        Account returnAccount = null;
         if((account.getUsername()!="")&&(account.getPassword().length()>=4)&&(accountDAO.getAccountByUsername(username)==null)){
-            returnAccount = accountDAO.userRegistration(account);
+            return accountDAO.userRegistration(account);
         }
-        return returnAccount;
+        return null;
+    }
+
+    public Account userLogin(Account account){
+        return accountDAO.userLogin(account);
     }
 
 
