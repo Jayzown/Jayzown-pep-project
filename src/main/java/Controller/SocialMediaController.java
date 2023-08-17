@@ -1,5 +1,7 @@
 package Controller;
 
+import java.sql.SQLException;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -40,6 +42,8 @@ public class SocialMediaController {
         app.post("/messages", this::createMessageHandler);
         app.get("/messages", this::getAllMessagesHandler);
         app.get("/messages/{message_id}", this::getMessageByMessageIdHandler);
+        app.delete("/messages/{message_id}", this::deleteMessageByIdHandler);
+        app.patch("/messages/{message_id}", this::updateMessageByIdHandler);
 
         return app;
     }
@@ -97,7 +101,7 @@ public class SocialMediaController {
     }
 
     private void getMessageByMessageIdHandler(Context context) throws JsonProcessingException{
-        
+
         int message_id = Integer.parseInt(context.pathParam("message_id"));
         Message message = messageService.getMessageByMessageId(message_id);
 
@@ -105,6 +109,30 @@ public class SocialMediaController {
             context.json(message);
         }else{
             context.status(200).json("");
+        }
+    }
+
+    private void deleteMessageByIdHandler(Context context) throws JsonProcessingException{
+        int message_id = Integer.parseInt(context.pathParam("message_id"));
+        Message delMessage = messageService.deleteMessageById(message_id);
+        if(delMessage!=null){
+            context.status(200).json(delMessage);
+        }else{
+            context.status(200).json("");
+        }
+    }
+
+    private void updateMessageByIdHandler(Context context) throws JsonProcessingException{
+        ObjectMapper mapper = new ObjectMapper();
+        Message message = mapper.readValue(context.body(), Message.class);
+        int message_id = Integer.parseInt(context.pathParam("message_id"));
+        Message updatedMessage = messageService.updateMessageById(message_id, message);
+    
+        if(updatedMessage!=null){
+            context.status(200).json(updatedMessage);
+        }
+        else{
+            context.status(400).json("");
         }
     }
 

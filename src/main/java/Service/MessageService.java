@@ -2,6 +2,8 @@ package Service;
 import DAO.MessageDAO;
 import java.util.List;
 import Model.Message;
+
+import java.sql.SQLException;
 import java.util.*;
 
 public class MessageService {
@@ -33,5 +35,19 @@ public class MessageService {
         return messageDAO.getMessageByMessageId(id);
     }
 
+    public Message deleteMessageById (int id){
+        Message retMsg = null;
+        if(getMessageByMessageId(id)!=null){
+            retMsg = getMessageByMessageId(id);
+            messageDAO.deleteMessageById(id);
+        }return retMsg;
+    }
     
+    public Message updateMessageById (int id, Message message){
+        if((message.getMessage_text()!="")&&(message.getMessage_text().length()<255)&&(getMessageByMessageId(id)!=null)){
+            messageDAO.updateMessageById(id, message);
+            return getMessageByMessageId(id);
+        }return null;
+        
+    }
 }
