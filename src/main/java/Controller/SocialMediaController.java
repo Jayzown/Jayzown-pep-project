@@ -39,6 +39,7 @@ public class SocialMediaController {
         app.post("/login", this::userLoginHandler);
         app.post("/messages", this::createMessageHandler);
         app.get("/messages", this::getAllMessagesHandler);
+        app.get("/messages/{message_id}", this::getMessageByMessageIdHandler);
 
         return app;
     }
@@ -93,6 +94,10 @@ public class SocialMediaController {
 
     private void getAllMessagesHandler(Context context){
         context.json(messageService.getAllMessages());
+    }
+
+    private void getMessageByMessageIdHandler(Context context) throws JsonProcessingException{
+
     }
 
 }
