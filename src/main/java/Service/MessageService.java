@@ -48,6 +48,9 @@ public class MessageService {
             messageDAO.updateMessageById(id, message);
             return getMessageByMessageId(id);
         }return null;
-        
+    }
+
+    public List<Message> getAllMessagesByUser(int id){
+        return messageDAO.getAllMessagesByUser(id);
     }
 }
